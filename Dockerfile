@@ -1,5 +1,5 @@
 # Deployment doesn't work on Alpine
-FROM php:7.3-cli AS deployer
+FROM php:7.4-cli AS deployer
 ENV OSTICKET_VERSION=1.14.3
 RUN set -x \
     && apt-get update \
@@ -7,14 +7,13 @@ RUN set -x \
     && git clone -b v${OSTICKET_VERSION} --depth 1 https://github.com/osTicket/osTicket.git \
     && cd osTicket \
     && php manage.php deploy -sv /data/upload \
-    # www-data is uid:gid 82:82 in php:7.0-fpm-alpine
-    && chown -R 82:82 /data/upload \
+    && chown -R  www-data: www-data /data/upload \
     # Hide setup
     && mv /data/upload/setup /data/upload/setup_hidden \
     && chown -R root:root /data/upload/setup_hidden \
     && chmod -R go= /data/upload/setup_hidden
 
-FROM php:7.3-fpm-alpine
+FROM php:7.4-fpm-alpine
 MAINTAINER Martin Campbell <martin@campbellsoftware.co.uk>
 # environment for osticket
 ENV HOME=/data
