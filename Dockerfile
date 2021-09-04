@@ -1,4 +1,3 @@
-# Deployment doesn't work on Alpine
 FROM php:7.4-cli AS deployer
 ENV OSTICKET_VERSION=1.15.3.1
 RUN set -x \
@@ -64,6 +63,10 @@ RUN set -x && \
     mv upload/include/i18n upload/include/i18n.dist && \
     # Download LDAP plugin
     wget -nv -O upload/include/plugins/auth-ldap.phar https://s3.amazonaws.com/downloads.osticket.com/plugin/auth-ldap.phar && \
+    # Download S3 Storage plugin
+    wget -nv -O upload/include/plugins/storage-s3.phar https://s3.amazonaws.com/downloads.osticket.com/plugin/storage-s3.phar && \
+    # Download FS Storage plugin
+    wget -nv -O upload/include/plugins/storage-fs.phar https://s3.amazonaws.com/downloads.osticket.com/plugin/storage-fs.phar && \
     # Create msmtp log
     touch /var/log/msmtp.log && \
     chown www-data:www-data /var/log/msmtp.log && \
