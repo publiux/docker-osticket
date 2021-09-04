@@ -7,7 +7,7 @@ RUN set -x \
     && git clone -b v${OSTICKET_VERSION} --depth 1 https://github.com/osTicket/osTicket.git \
     && cd osTicket \
     && php manage.php deploy -sv /data/upload \
-    && chown -R  82:82 /data/upload \
+    && chown -R 82:82 /data/upload \
     # Hide setup
     && mv /data/upload/setup /data/upload/setup_hidden \
     && chown -R root:root /data/upload/setup_hidden \
@@ -34,7 +34,8 @@ RUN set -x && \
         libintl \
         libxml2 \
         icu \
-        openssl && \
+        openssl \
+        oniguruma-dev && \
     apk add --no-cache --virtual .build-deps \
         imap-dev \
         libpng-dev \
