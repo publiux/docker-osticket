@@ -14,7 +14,7 @@ RUN set -x \
     && chmod -R go= /data/upload/setup_hidden
 
 FROM php:7.4-fpm-alpine
-MAINTAINER Martin Campbell <martin@campbellsoftware.co.uk>
+LABEL org.opencontainers.image.authors="publiux@gmail.com"
 # environment for osticket
 ENV HOME=/data
 # setup workdir
